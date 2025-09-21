@@ -69,6 +69,7 @@ export default {
         "gradient-primary": "var(--gradient-primary)",
         "gradient-surface": "var(--gradient-surface)",
         "gradient-hero": "var(--gradient-hero)",
+        "gradient-tech-bg": "var(--gradient-tech-bg)",
       },
       boxShadow: {
         "tech": "var(--shadow-tech)",

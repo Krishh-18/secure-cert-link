@@ -14,7 +14,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-hero">
+    <div className="min-h-screen tech-bg-pattern">
       {/* Header */}
       <header className="relative overflow-hidden border-b border-tech-border bg-tech-surface/50 backdrop-blur-sm">
         <div className="absolute inset-0 bg-gradient-surface opacity-50" />
@@ -44,7 +44,7 @@ const Index = () => {
               </div>
               
               <h2 className="text-2xl font-semibold text-foreground">
-                View Example Implementation
+                Application Link
               </h2>
               
               <p className="text-muted-foreground leading-relaxed">
@@ -59,7 +59,7 @@ const Index = () => {
                   className="group"
                 >
                   <ExternalLink className="h-5 w-5 group-hover:rotate-12 transition-transform" />
-                  View Live Example
+                  Link
                 </Button>
               </div>
             </div>

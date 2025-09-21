@@ -47,6 +47,10 @@ All colors MUST be HSL.
     --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(195 100% 50%) 100%);
     --gradient-surface: linear-gradient(135deg, hsl(222 27% 8%) 0%, hsl(222 27% 12%) 100%);
     --gradient-hero: linear-gradient(135deg, hsl(220 27% 4%) 0%, hsl(222 27% 8%) 50%, hsl(220 27% 4%) 100%);
+    --gradient-tech-bg: radial-gradient(circle at 20% 50%, hsl(217 91% 60% / 0.1) 0%, transparent 50%), 
+                        radial-gradient(circle at 80% 20%, hsl(195 100% 50% / 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, hsl(217 91% 60% / 0.06) 0%, transparent 50%),
+                        linear-gradient(135deg, hsl(220 27% 4%) 0%, hsl(222 27% 6%) 100%);
     
     /* Shadows */
     --shadow-tech: 0 4px 20px -2px hsl(217 91% 60% / 0.3);
@@ -132,6 +136,39 @@ All colors MUST be HSL.
   
   .hero-gradient {
     background: var(--gradient-hero);
+  }
+  
+  .tech-bg-pattern {
+    background: var(--gradient-tech-bg);
+    position: relative;
+  }
+  
+  .tech-bg-pattern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      linear-gradient(90deg, hsl(217 91% 60% / 0.03) 1px, transparent 1px),
+      linear-gradient(180deg, hsl(217 91% 60% / 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+  
+  .tech-bg-pattern::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 25% 25%, hsl(217 91% 60% / 0.05) 2px, transparent 2px),
+      radial-gradient(circle at 75% 75%, hsl(195 100% 50% / 0.04) 1px, transparent 1px);
+    background-size: 80px 80px, 120px 120px;
+    pointer-events: none;
   }
   
   .tech-shadow {
