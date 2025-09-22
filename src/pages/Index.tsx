@@ -1,15 +1,55 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ExternalLink, Award, Shield, Cpu } from "lucide-react";
+import { ExternalLink, Award, Shield, Cpu, Download, Smartphone } from "lucide-react";
+import { Certificate } from "@/components/Certificate";
+import { useState } from "react";
+import { toast } from "sonner";
+
 const Index = () => {
-  const handleViewExample = () => {
-    window.open("https://example.com", "_blank");
+  const [showCertificate, setShowCertificate] = useState(false);
+  const [certificateData, setCertificateData] = useState({
+    serialNumber: "",
+    deviceModel: "",
+    completionDate: ""
+  });
+
+  const handleDownloadFile = () => {
+    const link = document.createElement('a');
+    link.href = '/edriveerase.cpp';
+    link.download = 'edriveerase.cpp';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success("File download started!");
   };
+
   const handleGenerateCertificate = () => {
-    // Generate certificate logic here
-    console.log("Generating professional certificate...");
-    // You can add actual certificate generation logic here
+    // Generate sample certificate data
+    const currentDate = new Date().toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    
+    setCertificateData({
+      serialNumber: `SN${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
+      deviceModel: "Samsung SSD 980 PRO 1TB",
+      completionDate: currentDate
+    });
+    
+    setShowCertificate(true);
+    toast.success("Certificate generated successfully!");
   };
+
+  const handleDownloadCertificate = () => {
+    // In a real implementation, this would generate and download a PDF
+    toast.success("Certificate download would start here (requires backend integration for PDF generation)");
+  };
+
+  const handleDownloadMobileApp = () => {
+    toast.info("Mobile app download coming soon!");
+  };
+
   return <div className="min-h-screen tech-bg-pattern">
       {/* Header */}
       <header className="relative overflow-hidden border-b border-tech-border bg-tech-surface/50 backdrop-blur-sm">
@@ -30,24 +70,24 @@ const Index = () => {
 
       {/* Main Content */}
       <main className="container mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 lg:gap-12 max-w-7xl mx-auto">
           
-          {/* First Column - Example Link */}
+          {/* First Column - File Download */}
           <Card className="p-8 surface-gradient border-tech-border card-shadow hover:shadow-glow transition-all duration-500 animate-fade-in">
             <div className="text-center space-y-6">
               <div className="mx-auto w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mb-6">
-                <ExternalLink className="h-8 w-8 text-white" />
+                <Download className="h-8 w-8 text-white" />
               </div>
               
-              <h2 className="text-2xl font-semibold text-foreground"> Link For Complete Data Deletion</h2>
+              <h2 className="text-2xl font-semibold text-foreground">Application Link</h2>
               
               <p className="text-muted-foreground leading-relaxed">
-                Explore our comprehensive data wiping solution in action. See how our enterprise-grade security protocols ensure complete data destruction with full audit trails and compliance reporting.
+                Download our professional data wiping application. Enterprise-grade secure deletion tool with DoD 5220.22-M compliance and comprehensive audit logging.
               </p>
               
               <div className="pt-4">
-                <Button variant="tech-outline" size="lg" onClick={handleViewExample} className="group">
-                  <ExternalLink className="h-5 w-5 group-hover:rotate-12 transition-transform" />
+                <Button variant="tech-outline" size="lg" onClick={handleDownloadFile} className="group">
+                  <Download className="h-5 w-5 group-hover:translate-y-1 transition-transform" />
                   Link
                 </Button>
               </div>
@@ -77,8 +117,44 @@ const Index = () => {
               </div>
             </div>
           </Card>
+
+          {/* Third Column - Mobile App Download */}
+          <Card className="p-8 surface-gradient border-tech-border card-shadow hover:shadow-glow transition-all duration-500 animate-fade-in [animation-delay:400ms]">
+            <div className="text-center space-y-6">
+              <div className="mx-auto w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mb-6">
+                <Smartphone className="h-8 w-8 text-white" />
+              </div>
+              
+              <h2 className="text-2xl font-semibold text-foreground">
+                Mobile Application
+              </h2>
+              
+              <p className="text-muted-foreground leading-relaxed">
+                Download our mobile companion app for on-the-go data wiping verification and certificate management. Available for iOS and Android devices.
+              </p>
+              
+              <div className="pt-4">
+                <Button variant="professional" size="lg" onClick={handleDownloadMobileApp} className="group">
+                  <Smartphone className="h-5 w-5 group-hover:rotate-12 transition-transform" />
+                  Download App
+                </Button>
+              </div>
+            </div>
+          </Card>
           
         </div>
+
+        {/* Certificate Display */}
+        {showCertificate && (
+          <div className="mt-16">
+            <Certificate 
+              serialNumber={certificateData.serialNumber}
+              deviceModel={certificateData.deviceModel}
+              completionDate={certificateData.completionDate}
+              onDownload={handleDownloadCertificate}
+            />
+          </div>
+        )}
 
         {/* Trust Indicators */}
         <div className="mt-16 text-center">
