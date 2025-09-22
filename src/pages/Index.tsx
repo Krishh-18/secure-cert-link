@@ -1,20 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ExternalLink, Award, Shield, Cpu } from "lucide-react";
-
 const Index = () => {
   const handleViewExample = () => {
     window.open("https://example.com", "_blank");
   };
-
   const handleGenerateCertificate = () => {
     // Generate certificate logic here
     console.log("Generating professional certificate...");
     // You can add actual certificate generation logic here
   };
-
-  return (
-    <div className="min-h-screen tech-bg-pattern">
+  return <div className="min-h-screen tech-bg-pattern">
       {/* Header */}
       <header className="relative overflow-hidden border-b border-tech-border bg-tech-surface/50 backdrop-blur-sm">
         <div className="absolute inset-0 bg-gradient-surface opacity-50" />
@@ -43,21 +39,14 @@ const Index = () => {
                 <ExternalLink className="h-8 w-8 text-white" />
               </div>
               
-              <h2 className="text-2xl font-semibold text-foreground">
-                Application Link
-              </h2>
+              <h2 className="text-2xl font-semibold text-foreground"> Link For Complete Data Deletion</h2>
               
               <p className="text-muted-foreground leading-relaxed">
                 Explore our comprehensive data wiping solution in action. See how our enterprise-grade security protocols ensure complete data destruction with full audit trails and compliance reporting.
               </p>
               
               <div className="pt-4">
-                <Button 
-                  variant="tech-outline" 
-                  size="lg" 
-                  onClick={handleViewExample}
-                  className="group"
-                >
+                <Button variant="tech-outline" size="lg" onClick={handleViewExample} className="group">
                   <ExternalLink className="h-5 w-5 group-hover:rotate-12 transition-transform" />
                   Link
                 </Button>
@@ -81,12 +70,7 @@ const Index = () => {
               </p>
               
               <div className="pt-4">
-                <Button 
-                  variant="tech" 
-                  size="lg" 
-                  onClick={handleGenerateCertificate}
-                  className="group"
-                >
+                <Button variant="tech" size="lg" onClick={handleGenerateCertificate} className="group">
                   <Award className="h-5 w-5 group-hover:scale-110 transition-transform" />
                   Generate Certificate
                 </Button>
@@ -114,8 +98,6 @@ const Index = () => {
           </div>
         </div>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
