@@ -1,21 +1,58 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Shield, Calendar, CheckCircle, Award, Hash } from 'lucide-react';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 interface CertificateProps {
   serialNumber: string;
   deviceModel: string;
   completionDate: string;
-  onDownload: () => void;
 }
 
 export const Certificate: React.FC<CertificateProps> = ({
   serialNumber,
   deviceModel,
-  completionDate,
-  onDownload
+  completionDate
 }) => {
+  const certificateRef = useRef<HTMLDivElement>(null);
+
+  const handleDownloadPDF = async () => {
+    if (!certificateRef.current) return;
+
+    try {
+      const canvas = await html2canvas(certificateRef.current, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff'
+      });
+      
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      
+      const imgWidth = 210;
+      const pageHeight = 295;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save(`Data-Destruction-Certificate-${serialNumber}.pdf`);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+    }
+  };
+
   return (
-    <div className="certificate-container bg-white p-8 rounded-lg shadow-2xl max-w-4xl mx-auto border-2 border-tech-primary/20">
+    <div ref={certificateRef} className="certificate-container bg-white p-8 rounded-lg shadow-2xl max-w-4xl mx-auto border-2 border-tech-primary/20">
       {/* Header */}
       <div className="text-center mb-8 border-b-2 border-tech-primary/10 pb-6">
         <div className="flex items-center justify-center gap-3 mb-4">
@@ -124,7 +161,7 @@ export const Certificate: React.FC<CertificateProps> = ({
       {/* Download Button */}
       <div className="text-center mt-8">
         <button 
-          onClick={onDownload}
+          onClick={handleDownloadPDF}
           className="bg-tech-primary hover:bg-tech-primary/90 text-white px-8 py-3 rounded-lg font-semibold transition-colors shadow-lg"
         >
           Download Certificate (PDF)

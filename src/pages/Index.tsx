@@ -41,10 +41,6 @@ const Index = () => {
     toast.success("Certificate generated successfully!");
   };
 
-  const handleDownloadCertificate = () => {
-    // In a real implementation, this would generate and download a PDF
-    toast.success("Certificate download would start here (requires backend integration for PDF generation)");
-  };
 
   const handleDownloadMobileApp = () => {
     toast.info("Mobile app download coming soon!");
@@ -151,7 +147,6 @@ const Index = () => {
               serialNumber={certificateData.serialNumber}
               deviceModel={certificateData.deviceModel}
               completionDate={certificateData.completionDate}
-              onDownload={handleDownloadCertificate}
             />
           </div>
         )}
